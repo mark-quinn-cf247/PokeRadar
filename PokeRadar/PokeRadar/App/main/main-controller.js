@@ -4,9 +4,9 @@
     angular.module('PokeRadar')
         .controller('mainController', mainController);
 
-    mainController.$inject = ['pokeService'];
+    mainController.$inject = ['$scope', 'pokeService'];
 
-    function mainController(pokeService) {
+    function mainController($scope, pokeService) {
         /* jshint validthis: true */
         var vm = this;
         var lat = 51.5032510;
@@ -21,20 +21,35 @@
         }
 
         function getPokemon() {
-            pokeService.getPokemon(lat, long, jobId).then(function (response) {
-                if (response.data.jobStatus === 'in_progress') {
-                    getPokemon();
-                } else {
-                    vm.pokemons = response.data.pokemon;
-                }
-            });
+            //pokeService.getPokemon(lat, long, jobId).then(function (response) {
+            //    if (response.data.jobStatus === 'in_progress') {
+            //        getPokemon();
+            //    } else {
+            //        vm.pokemons = response.data.pokemon;
+            //    }
+            //});
 
-            //vm.pokemon = pokeService.getPokemon(lat, long, jobId).pokemon;
+            vm.pokemons = pokeService.getPokemon(lat, long, jobId).pokemon;
+            $scope.$apply();
+        }
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(setPosition);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function setPosition(position) {
+            lat = position.coords.latitude;
+            long = position.coords.longitude;
+            //getToken();
+            getPokemon();
         }
 
         function init() {
-            getToken();
-            //getPokemon();
+            getLocation();
         }
 
         init();

@@ -28,8 +28,8 @@
         }
 
         function getPokemon(lat, long, jobId) {
-             return $http.get(baseUrl + 'data/' + lat + '/' + long + '/' + jobId);
-            //return dummyData;
+            //return $http.get(baseUrl + 'data/' + lat + '/' + long + '/' + jobId);
+            return dummyData;
         }
     }
 
