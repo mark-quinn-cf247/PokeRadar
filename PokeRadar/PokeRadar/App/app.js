@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('pokeRadar', [
+    angular.module('PokeRadar', [
         // Angular modules
         'ngAnimate',
         'ngRoute'
