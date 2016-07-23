@@ -4,9 +4,9 @@
     angular.module('PokeRadar')
         .controller('mainController', mainController);
 
-    mainController.$inject = ['pokeService'];
+    mainController.$inject = ['$scope', 'pokeService'];
 
-    function mainController(pokeService) {
+    function mainController($scope, pokeService) {
         /* jshint validthis: true */
         var vm = this;
         var lat = 51.5032510;
@@ -30,6 +30,7 @@
             //});
 
             vm.pokemons = pokeService.getPokemon(lat, long, jobId).pokemon;
+            $scope.$apply();
         }
 
         function getLocation() {
