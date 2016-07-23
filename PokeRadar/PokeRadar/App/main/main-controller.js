@@ -4,9 +4,9 @@
     angular.module('PokeRadar')
         .controller('mainController', mainController);
 
-    mainController.$inject = ['$scope', 'pokeService'];
+    mainController.$inject = ['$scope', '$window', 'pokeService', 'googleMapService'];
 
-    function mainController($scope, pokeService) {
+    function mainController($scope, $window, pokeService, googleMapService) {
         /* jshint validthis: true */
         var vm = this;
         var lat = 51.5032510;
@@ -46,6 +46,29 @@
             long = position.coords.longitude;
             //getToken();
             getPokemon();
+            initMap();
+        }
+
+        function initMap() {
+            googleMapService.then(function () {
+                renderMap();
+            }, function () {
+                alert("failed to get map. Shit!!!!");
+            });
+        }
+
+        function renderMap() {
+            vm.map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: lat, lng: long },
+                zoom: 17       
+            });
+
+            var location = new google.maps.LatLng(lat, long);
+
+            new google.maps.Marker({
+                position: location,
+                map: vm.map,
+            });
         }
 
         function init() {

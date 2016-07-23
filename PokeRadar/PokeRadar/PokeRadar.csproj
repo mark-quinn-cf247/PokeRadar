@@ -95,6 +95,7 @@
     <Content Include="App\main\main-controller.js" />
     <Content Include="App\main\main-directive.js" />
     <Content Include="App\main\main.html" />
+    <Content Include="App\Services\google-map-service.js" />
     <Content Include="App\Services\poke-service.js" />
     <Content Include="App\styles\styles.css" />
     <Content Include="Content\bootstrap-theme.css" />
