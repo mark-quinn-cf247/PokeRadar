@@ -7,5 +7,6 @@ using System.Web;
 namespace Carfinance.PokeRadar.Services {
     public interface IPokemonService {
         Pokemon GetByNumber(int id);
+        IEnumerable<Pokemon> GetByNumbers(int[] ids);
     }
 }
