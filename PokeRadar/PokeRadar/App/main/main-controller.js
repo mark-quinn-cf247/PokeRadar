@@ -21,20 +21,34 @@
         }
 
         function getPokemon() {
-            pokeService.getPokemon(lat, long, jobId).then(function (response) {
-                if (response.data.jobStatus === 'in_progress') {
-                    getPokemon();
-                } else {
-                    vm.pokemons = response.data.pokemon;
-                }
-            });
+            //pokeService.getPokemon(lat, long, jobId).then(function (response) {
+            //    if (response.data.jobStatus === 'in_progress') {
+            //        getPokemon();
+            //    } else {
+            //        vm.pokemons = response.data.pokemon;
+            //    }
+            //});
 
-            //vm.pokemon = pokeService.getPokemon(lat, long, jobId).pokemon;
+            vm.pokemons = pokeService.getPokemon(lat, long, jobId).pokemon;
+        }
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(setPosition);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function setPosition(position) {
+            lat = position.coords.latitude;
+            long = position.coords.longitude;
+            //getToken();
         }
 
         function init() {
-            getToken();
-            //getPokemon();
+            getLocation();
+            getPokemon();
         }
 
         init();
