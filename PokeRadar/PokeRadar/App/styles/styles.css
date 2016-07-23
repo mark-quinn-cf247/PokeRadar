@@ -1,0 +1,14 @@
+﻿html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.poke-info-table {
+    width: 500px;
+}
+
+.poke-map {
+    height: 500px;
+    width: 500px;
+}

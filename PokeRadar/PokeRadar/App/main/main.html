@@ -1,0 +1,20 @@
+﻿<div id="map" class="poke-map"></div>
+
+<table class="table poke-info-table">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Latitude</td>
+            <td>Longtitude</td>
+            <td>Expiration</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="pokemon in vm.pokemons">
+            <td>{{pokemon.pokemonId}}</td>
+            <td>{{pokemon.latitude}}</td>
+            <td>{{pokemon.longitude}}</td>
+            <td>{{pokemon.expiration_time}}</td>
+        </tr>
+    </tbody>
+</table>
