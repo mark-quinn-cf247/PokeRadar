@@ -6,22 +6,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Http;
 
 namespace Carfinance.PokeRadar.Services {
     public class PokemonService : IPokemonService {
         private static JObject pokemonJson;
         private object jsonLock = new object();
 
-
-        public PokemonService() {
-            InitPokemonJson();
+        public PokemonService(string pokeJsonPath) {
+            InitPokemonJson(pokeJsonPath);
         }
 
-        public PokemonService(string pokeJson) {
-            pokemonJson = JObject.Parse(pokeJson);
-        }
-
-        public Pokemon GetById(int id) {
+        public Pokemon GetByNumber(int id) {
             Pokemon pokemon = null;
             string pokemonNumber = id.ToString("000");
             JToken pokemonToken = pokemonJson.SelectToken(
@@ -33,11 +29,11 @@ namespace Carfinance.PokeRadar.Services {
         }
 
         #region Private Members
-        private void InitPokemonJson() {
+        private void InitPokemonJson(string pokeJsonPath) {
             if (pokemonJson == null) {
                 lock (jsonLock)
                 if (pokemonJson == null) {
-                    pokemonJson = JObject.Parse(File.ReadAllText("~Resources\\pokemons.json"));
+                    pokemonJson = JObject.Parse(File.ReadAllText(pokeJsonPath));
                 }
             }
         }

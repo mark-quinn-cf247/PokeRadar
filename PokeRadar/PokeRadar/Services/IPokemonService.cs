@@ -6,6 +6,6 @@ using System.Web;
 
 namespace Carfinance.PokeRadar.Services {
     public interface IPokemonService {
-        Pokemon GetById(int id);
+        Pokemon GetByNumber(int id);
     }
 }

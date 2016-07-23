@@ -10,12 +10,8 @@ namespace PokeRadar.Tests {
 
         [TestMethod]
         public void TestMethod1() {
-            string json = File.ReadAllText("pokemons.json");
-            PokemonService service = new PokemonService(json);
-
-            Pokemon p = service.GetById(1);
-
-
+            PokemonService service = new PokemonService("pokemons.json");
+            Pokemon p = service.GetByNumber(1);
         }
     }
 }
