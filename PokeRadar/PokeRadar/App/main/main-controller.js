@@ -30,7 +30,17 @@
             //});
 
             vm.pokemons = pokeService.getPokemon(lat, long, jobId).pokemon;
+
             $scope.$apply();
+        }
+
+        function getPokemonData() {
+            // get pokemon ids
+            var pokemonIds = vm.pokemons.map(function (a) { return a.pokemonId; });
+            pokeService.getPokemonData(pokemonIds).then(function (response) {
+                vm.pokemonData = response.data;
+                initMap();
+            });
         }
 
         function getLocation() {
@@ -46,7 +56,7 @@
             long = position.coords.longitude;
             //getToken();
             getPokemon();
-            initMap();
+            getPokemonData();
         }
 
         function initMap() {
@@ -77,6 +87,7 @@
         function plotPokemon() {
             var bounds = new google.maps.LatLngBounds();
             angular.forEach(vm.pokemons, function (value, key) {
+                
                 var location = new google.maps.LatLng(value.latitude, value.longitude);
                 bounds.extend(location);
                 new google.maps.Marker({

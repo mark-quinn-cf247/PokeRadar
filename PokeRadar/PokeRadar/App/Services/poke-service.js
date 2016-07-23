@@ -11,7 +11,8 @@
         var baseUrl = 'http://www.pokevision.com/map/';
         var service = {
             getToken: getToken,
-            getPokemon: getPokemon
+            getPokemon: getPokemon,
+            getPokemonData: getPokemonData
         }
 
         return service;
@@ -30,6 +31,10 @@
         function getPokemon(lat, long, jobId) {
             //return $http.get(baseUrl + 'data/' + lat + '/' + long + '/' + jobId);
             return dummyData;
+        }
+
+        function getPokemonData(pokemonIds) {
+            return $http.post('api/pokemon', pokemonIds);
         }
     }
 
