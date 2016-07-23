@@ -68,11 +68,6 @@
             new google.maps.Marker({
                 position: location,
                 map: vm.map,
-            });
-
-            new google.maps.Marker({
-                position: location,
-                map: vm.map,
                 title: 'This is you'
             });
 
