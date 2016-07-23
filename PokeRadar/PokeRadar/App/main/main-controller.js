@@ -63,12 +63,30 @@
                 zoom: 17       
             });
 
+            // plot current location
             var location = new google.maps.LatLng(lat, long);
-
             new google.maps.Marker({
                 position: location,
                 map: vm.map,
+                title: 'This is you'
             });
+
+            plotPokemon();
+        }
+
+        function plotPokemon() {
+            var bounds = new google.maps.LatLngBounds();
+            angular.forEach(vm.pokemons, function (value, key) {
+                var location = new google.maps.LatLng(value.latitude, value.longitude);
+                bounds.extend(location);
+                new google.maps.Marker({
+                    position: location,
+                    map: vm.map,
+                    title: 'This is a pokemon'
+                });
+            });
+
+            vm.map.fitBounds(bounds);
         }
 
         function init() {
