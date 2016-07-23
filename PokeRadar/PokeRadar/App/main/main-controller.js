@@ -44,11 +44,11 @@
             lat = position.coords.latitude;
             long = position.coords.longitude;
             //getToken();
+            getPokemon();
         }
 
         function init() {
             getLocation();
-            getPokemon();
         }
 
         init();
