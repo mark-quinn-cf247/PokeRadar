@@ -28,6 +28,14 @@ namespace Carfinance.PokeRadar.Services {
             return pokemon;
         }
 
+        public IEnumerable<Pokemon> GetByNumbers(int[] ids) {
+            List<Pokemon> pokemons = new List<Pokemon>();
+            foreach(int id in ids) {
+                pokemons.Add(GetByNumber(id));
+            }
+            return pokemons;
+        }
+
         #region Private Members
         private void InitPokemonJson(string pokeJsonPath) {
             if (pokemonJson == null) {
@@ -37,6 +45,8 @@ namespace Carfinance.PokeRadar.Services {
                 }
             }
         }
+
+
 
         #endregion
     }

@@ -24,5 +24,9 @@ namespace AngularJSWebApiEmpty.Controllers {
         public IHttpActionResult Get(int id) {
             return Json(pokemonService.GetByNumber(id));
         }
+        [HttpPost]
+        public IHttpActionResult Get(int[] ids) {
+            return Json(pokemonService.GetByNumbers(ids));
+        }
     }
 }
