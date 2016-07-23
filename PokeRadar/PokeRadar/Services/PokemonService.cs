@@ -1,4 +1,5 @@
 ﻿using Carfinance.PokeRadar.Models;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -7,13 +8,13 @@ using System.Linq;
 using System.Web;
 
 namespace Carfinance.PokeRadar.Services {
-    public class PokemonService {
+    public class PokemonService : IPokemonService {
         private static JObject pokemonJson;
         private object jsonLock = new object();
 
 
         public PokemonService() {
-            InitPokeonJson();
+            InitPokemonJson();
         }
 
         public PokemonService(string pokeJson) {
@@ -23,19 +24,20 @@ namespace Carfinance.PokeRadar.Services {
         public Pokemon GetById(int id) {
             Pokemon pokemon = null;
             string pokemonNumber = id.ToString("000");
-
-            var result = pokemonJson.Descendants().Where(p => p.ToString() == pokemonNumber).Select(
-                t => (string)t);
-
+            JToken pokemonToken = pokemonJson.SelectToken(
+                $"$.Pokemons[?(@.Number == '{pokemonNumber}')]"
+            );
+  
+            pokemon = JsonConvert.DeserializeObject<Pokemon>(pokemonToken.ToString());
             return pokemon;
         }
 
         #region Private Members
-        private void InitPokeonJson() {
+        private void InitPokemonJson() {
             if (pokemonJson == null) {
-                lock (jsonLock) ;
+                lock (jsonLock)
                 if (pokemonJson == null) {
-                    pokemonJson = JObject.Parse(File.ReadAllText("~Resources\\pokemon.json"));
+                    pokemonJson = JObject.Parse(File.ReadAllText("~Resources\\pokemons.json"));
                 }
             }
         }

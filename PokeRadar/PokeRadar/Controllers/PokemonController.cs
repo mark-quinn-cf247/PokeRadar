@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Carfinance.PokeRadar.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -8,10 +9,19 @@ using System.Web.Http;
 namespace AngularJSWebApiEmpty.Controllers {
 
     public class PokemonController : ApiController {
+        IPokemonService pokemonService;
+        public PokemonController() {
+
+        }
+
+        public PokemonController(IPokemonService pokemonService) {
+            this.pokemonService = pokemonService;
+
+        }
         [HttpGet]
-        [Route("{id}")]
+        [Route("")]
         public IHttpActionResult Get(int id) {
-            return Json(new Object());
+            return Json(pokemonService.GetById(id));
         }
     }
 }
