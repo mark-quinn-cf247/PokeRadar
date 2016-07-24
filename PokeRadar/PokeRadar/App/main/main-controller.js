@@ -85,7 +85,7 @@
         }
 
         function plotPokemon() {
-            vm.tableData = null;
+            vm.tableData = [];
             angular.forEach(vm.pokemons, function (value, key) {
                 var data = $filter('filter')(vm.pokemonData, { Number: value.pokemonId })[0]
                 var location = new google.maps.LatLng(value.latitude, value.longitude);
