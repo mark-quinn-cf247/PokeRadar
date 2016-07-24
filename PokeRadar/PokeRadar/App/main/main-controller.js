@@ -112,7 +112,7 @@
 
                 var distance = getDistance(value.latitude, value.longitude);
 
-                if (distance < 30 && $.inArray(value.uid, alreadyNotified) == -1) {
+                if (distance < 50 && $.inArray(value.uid, alreadyNotified) == -1) {
                     playSound();
                     alreadyNotified.push(value.uid);
                 }
