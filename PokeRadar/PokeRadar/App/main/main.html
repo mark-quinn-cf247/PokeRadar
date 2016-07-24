@@ -13,7 +13,7 @@
             <tr ng-repeat="pokemon in vm.tableData | orderBy:'distance'">
                 <td>{{pokemon.name}}</td>
                 <td>{{pokemon.distance}}</td>
-                <td>{{pokemon.expiration | secondsToDateTime | date:'HH:mm:ss'}}</td>
+                <td>{{pokemon.expiration.minutes}}:{{pokemon.expiration.seconds}}</td>
             </tr>
         </tbody>
     </table>

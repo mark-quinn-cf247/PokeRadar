@@ -119,14 +119,40 @@
                     infowindow.open(vm.map, marker);
                 });
 
+                var expiration = new Date(1970, 0, 1);
+                expiration.setSeconds(value.expiration_time);
+                expiration = getExpiration(expiration);
+
                 var pokeTable = {
                     name: data.Name,
                     distance: getDistance(value.latitude, value.longitude),
-                    expiration: value.expiration_time / 10000000
+                    expiration: expiration
                 };
 
                 vm.tableData.push(pokeTable);
             });
+        }
+
+        function getExpiration(date) {
+            var newDate = new Date(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
+
+            var offset = date.getTimezoneOffset() / 60;
+            var hours = date.getHours();
+
+            newDate.setHours(hours - offset);
+
+            var expSecs = newDate.getTime() / 1000;
+            var currentSecs = new Date().getTime() / 1000;
+
+            var totalSeconds = expSecs - currentSecs;
+
+            var minutes = Math.floor(totalSeconds / 60);
+            var seconds = Math.floor(totalSeconds - minutes * 60);
+
+            minutes = ('00' + minutes).substr(-2);
+            seconds = ('00' + seconds).substr(-2);
+
+            return {minutes: minutes, seconds: seconds};
         }
 
         function getDistance(pokeLat, pokeLong) {
