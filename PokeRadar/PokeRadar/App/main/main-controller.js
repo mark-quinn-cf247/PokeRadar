@@ -109,6 +109,10 @@
 
                 var distance = getDistance(value.latitude, value.longitude);
 
+                if (distance < 30) {
+                    playSound();
+                }
+
                 var contentString = '<div>' +
                                         '<div><b>' + data.Name + '</b></div>' +
                                         '<div>Distance: ' +distance + '</div>' +
@@ -176,6 +180,11 @@
 
         function deg2rad(deg) {
             return deg * (Math.PI/180)
+        }
+
+        function playSound() {
+            var audio = new Audio('http://www.pokezorworld.com/anime/wav/whosthatpokemon.wav');
+            audio.play();
         }
 
         function init() {
