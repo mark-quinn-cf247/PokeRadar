@@ -1,17 +1,18 @@
 ﻿(function () {
-    'use strict';
 
     angular.module('PokeRadar')
         .controller('mainController', mainController);
 
-    mainController.$inject = ['$scope', '$window', 'pokeService', 'googleMapService'];
+    mainController.$inject = ['$scope', '$window', '$filter', 'pokeService', 'googleMapService'];
 
-    function mainController($scope, $window, pokeService, googleMapService) {
+    function mainController($scope, $window, $filter, pokeService, googleMapService) {
         /* jshint validthis: true */
         var vm = this;
         var lat = 51.5032510;
         var long = -0.1278950;
         var jobId = null;
+        
+        vm.tableData = [];
 
         function getToken() {
             pokeService.getToken(lat, long).then(function (response) {
@@ -21,17 +22,18 @@
         }
 
         function getPokemon() {
-            //pokeService.getPokemon(lat, long, jobId).then(function (response) {
-            //    if (response.data.jobStatus === 'in_progress') {
-            //        getPokemon();
-            //    } else {
-            //        vm.pokemons = response.data.pokemon;
-            //    }
-            //});
+            pokeService.getPokemon(lat, long, jobId).then(function (response) {
+                if (response.data.jobStatus === 'in_progress') {
+                    getPokemon();
+                } else {
+                    vm.pokemons = response.data.pokemon;
+                    getPokemonData();
+                }
+            });
 
-            vm.pokemons = pokeService.getPokemon(lat, long, jobId).pokemon;
+            //vm.pokemons = pokeService.getPokemon(lat, long, jobId).pokemon;
 
-            $scope.$apply();
+            //$scope.$apply();
         }
 
         function getPokemonData() {
@@ -54,9 +56,7 @@
         function setPosition(position) {
             lat = position.coords.latitude;
             long = position.coords.longitude;
-            //getToken();
-            getPokemon();
-            getPokemonData();
+            getToken();
         }
 
         function initMap() {
@@ -85,19 +85,69 @@
         }
 
         function plotPokemon() {
-            var bounds = new google.maps.LatLngBounds();
             angular.forEach(vm.pokemons, function (value, key) {
-                
+                var data = $filter('filter')(vm.pokemonData, { Number: value.pokemonId })[0]
                 var location = new google.maps.LatLng(value.latitude, value.longitude);
-                bounds.extend(location);
-                new google.maps.Marker({
+
+                var icon = {
+                    url: '/Content/icons/' + ('000' + data.Number).substr(-3) + '.ico', // url
+                    scaledSize: new google.maps.Size(50, 50), // scaled size
+                    origin: new google.maps.Point(0, 0), // origin
+                    anchor: new google.maps.Point(0, 0) // anchor
+                };
+
+                var marker = new google.maps.Marker({
                     position: location,
                     map: vm.map,
-                    title: 'This is a pokemon'
+                    title: data.Name,
+                    icon: icon
                 });
-            });
 
-            vm.map.fitBounds(bounds);
+                var contentString = '<div>' +
+                                        '<div><b>' + data.Name + '</b></div>' +
+                                        '<div>Heigth: ' + data.Height + '</div>' +
+                                        '<div>Weight: ' + data.Weight + '</div>' +
+                                        //'<div>Type I: ' + data.TypeI[0] + '</div>' +
+                                        //'<div>Type II: ' + data.TypeII[0] + '</div>' +
+                                   ' </div>';
+
+                var infowindow = new google.maps.InfoWindow({
+                    content: contentString
+                });
+
+                marker.addListener('click', function () {
+                    infowindow.open(vm.map, marker);
+                });
+
+                var pokeTable = {
+                    name: data.Name,
+                    distance: getDistance(value.latitude, value.longitude),
+                    expiration: value.expiration_time / 10000000
+                };
+
+                vm.tableData.push(pokeTable);
+            });
+        }
+
+        function getDistance(pokeLat, pokeLong) {
+            var currentLat = lat;
+            var currentLong = long;
+
+            var R = 6371; // Radius of the earth in km
+            var dLat = deg2rad(pokeLat-currentLat);  // deg2rad below
+            var dLon = deg2rad(pokeLong-currentLong); 
+            var a = 
+              Math.sin(dLat/2) * Math.sin(dLat/2) +
+              Math.cos(deg2rad(currentLat)) * Math.cos(deg2rad(pokeLat)) * 
+              Math.sin(dLon/2) * Math.sin(dLon/2)
+            ; 
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+            var d = R * c * 1000; // Distance in m
+            return Math.floor(d);
+        }
+
+        function deg2rad(deg) {
+            return deg * (Math.PI/180)
         }
 
         function init() {

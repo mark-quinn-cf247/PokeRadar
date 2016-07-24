@@ -1,20 +1,27 @@
 ﻿<div id="map" class="poke-map"></div>
 
-<table class="table poke-info-table">
-    <thead>
-        <tr>
-            <td>Id</td>
-            <td>Latitude</td>
-            <td>Longtitude</td>
-            <td>Expiration</td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="pokemon in vm.pokemons">
-            <td>{{pokemon.pokemonId}}</td>
-            <td>{{pokemon.latitude}}</td>
-            <td>{{pokemon.longitude}}</td>
-            <td>{{pokemon.expiration_time}}</td>
-        </tr>
-    </tbody>
-</table>
+<div class="poke-info-table-container">
+    <table class="table poke-info-table">
+        <thead>
+            <tr>
+                <td><b>Name</b></td>
+                <td><b>Distance (m)</b></td>
+                <td><b>Expiration</b></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="pokemon in vm.tableData | orderBy:'distance'">
+                <td>{{pokemon.name}}</td>
+                <td>{{pokemon.distance}}</td>
+                <td>{{pokemon.expiration | secondsToDateTime | date:'HH:mm:ss'}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<!--<div>
+    <div><b>data.Name</b></div>
+    <div>Heigth: data.Height</div>
+    <div>Weight: data.Weight</div>
+    <div>Type I: data.TypeI[0]</div>
+    <div>Type II: data.TypeII[0]</div>
+</div>-->

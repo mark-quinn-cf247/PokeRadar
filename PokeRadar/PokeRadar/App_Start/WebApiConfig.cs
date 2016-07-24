@@ -12,6 +12,8 @@ namespace PokeRadar
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
             var cors = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(cors);
 
@@ -24,8 +26,6 @@ namespace PokeRadar
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-
-            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
     }
 }
