@@ -119,7 +119,7 @@
 
                 var contentString = '<div>' +
                                         '<div><b>' + data.Name + '</b></div>' +
-                                        '<div>Distance: ' +distance + '</div>' +
+                                        '<div>Distance: ' +distance + 'm</div>' +
                                         '<div>Expiration: ' + expiration.minutes + ':' + expiration.seconds + '</div>' +
                                         '<div>Heigth: ' + data.Height + '</div>' +
                                         '<div>Weight: ' + data.Weight + '</div>' +
