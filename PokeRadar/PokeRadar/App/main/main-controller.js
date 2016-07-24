@@ -3,16 +3,20 @@
     angular.module('PokeRadar')
         .controller('mainController', mainController);
 
-    mainController.$inject = ['$scope', '$window', '$filter', 'pokeService', 'googleMapService'];
+    mainController.$inject = ['$scope', '$window', '$filter', '$interval', 'pokeService', 'googleMapService'];
 
-    function mainController($scope, $window, $filter, pokeService, googleMapService) {
+    function mainController($scope, $window, $filter, $interval, pokeService, googleMapService) {
         /* jshint validthis: true */
         var vm = this;
         var lat = 51.5032510;
         var long = -0.1278950;
         var jobId = null;
-        
+        var refresh = null;
         vm.tableData = [];
+
+        $scope.$on("$destroy", function () {
+            $interval.cancel(refresh);
+        });
 
         function getToken() {
             pokeService.getToken(lat, long).then(function (response) {
@@ -103,12 +107,18 @@
                     icon: icon
                 });
 
+                var expiration = new Date(1970, 0, 1);
+                expiration.setSeconds(value.expiration_time);
+                expiration = getExpiration(expiration);
+
+                var distance = getDistance(value.latitude, value.longitude);
+
                 var contentString = '<div>' +
                                         '<div><b>' + data.Name + '</b></div>' +
+                                        '<div>Distance: ' +distance + '</div>' +
+                                        '<div>Expiration: ' + expiration.minutes + ':' + expiration.seconds + '</div>' +
                                         '<div>Heigth: ' + data.Height + '</div>' +
                                         '<div>Weight: ' + data.Weight + '</div>' +
-                                        //'<div>Type I: ' + data.TypeI[0] + '</div>' +
-                                        //'<div>Type II: ' + data.TypeII[0] + '</div>' +
                                    ' </div>';
 
                 var infowindow = new google.maps.InfoWindow({
@@ -119,13 +129,9 @@
                     infowindow.open(vm.map, marker);
                 });
 
-                var expiration = new Date(1970, 0, 1);
-                expiration.setSeconds(value.expiration_time);
-                expiration = getExpiration(expiration);
-
                 var pokeTable = {
                     name: data.Name,
-                    distance: getDistance(value.latitude, value.longitude),
+                    distance: distance,
                     expiration: expiration
                 };
 
@@ -178,6 +184,10 @@
 
         function init() {
             getLocation();
+
+            refresh = $interval(function () {
+                getToken();
+            }, 10000);
         }
 
         init();
