@@ -5,14 +5,14 @@
         <thead>
             <tr>
                 <td><b>Name</b></td>
-                <td><b>Distance (m)</b></td>
+                <td><b>Distance</b></td>
                 <td><b>Expiration</b></td>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="pokemon in vm.tableData | orderBy:'distance'">
                 <td>{{pokemon.name}}</td>
-                <td>{{pokemon.distance}}</td>
+                <td>{{pokemon.distance}}m</td>
                 <td>{{pokemon.expiration.minutes}}:{{pokemon.expiration.seconds}}</td>
             </tr>
         </tbody>
