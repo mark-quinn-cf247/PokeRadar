@@ -12,7 +12,9 @@
         var long = -0.1278950;
         var jobId = null;
         var refresh = null;
+        var alreadyNotified = [];
         vm.tableData = [];
+
 
         $scope.$on("$destroy", function () {
             $interval.cancel(refresh);
@@ -110,8 +112,9 @@
 
                 var distance = getDistance(value.latitude, value.longitude);
 
-                if (distance < 30) {
+                if (distance < 50 && $.inArray(value.uid, alreadyNotified) == -1) {
                     playSound();
+                    alreadyNotified.push(value.uid);
                 }
 
                 var contentString = '<div>' +
