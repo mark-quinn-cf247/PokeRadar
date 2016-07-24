@@ -18,18 +18,28 @@
         return service;
 
         function getToken(lat, long) {
-            return $http.get(baseUrl + 'scan/' + lat + '/' + long);
-            //return {
-            //    respone: {
-            //        data: {
-            //            jobId: "blah"
-            //        }
-            //    }
-            //}
+            //return $http.get(baseUrl + 'scan/' + lat + '/' + long);
+            return $http({
+                method: 'get',
+                url: 'token',
+                params: {
+                    latitude: lat,
+                    longitude: long
+                }
+            });
         }
 
         function getPokemon(lat, long, jobId) {
-            return $http.get(baseUrl + 'data/' + lat + '/' + long + '/' + jobId);
+            //return $http.get(baseUrl + 'data/' + lat + '/' + long + '/' + jobId);
+            return $http({
+                method: 'get',
+                url: 'external-pokemon',
+                params: {
+                    latitude: lat,
+                    longitude: long,
+                    jobId: jobId
+                }
+            });
             //return dummyData;
         }
 
