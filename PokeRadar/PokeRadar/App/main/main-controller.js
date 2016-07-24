@@ -26,14 +26,17 @@
         }
 
         function getPokemon() {
-            pokeService.getPokemon(lat, long, jobId).then(function (response) {
-                if (response.data.jobStatus === 'in_progress' || response.data.jobStatus === 'unknown') {
-                    getPokemon();
-                } else {
-                    vm.pokemons = response.data.pokemon;
-                    getPokemonData();
-                }
-            });
+            //pokeService.getPokemon(lat, long, jobId).then(function (response) {
+            //    if (response.data.jobStatus === 'in_progress' || response.data.jobStatus === 'unknown') {
+            //        getPokemon();
+            //    } else {
+            //        vm.pokemons = response.data.pokemon;
+            //        getPokemonData();
+            //    }
+            //});
+
+            vm.pokemons = pokeService.getPokemon(lat, long, jobId).pokemon;
+            getPokemonData();
         }
 
         function getPokemonData() {
@@ -85,7 +88,7 @@
         }
 
         function plotPokemon() {
-            vm.tableData = null;
+            vm.tableData = [];
             angular.forEach(vm.pokemons, function (value, key) {
                 var data = $filter('filter')(vm.pokemonData, { Number: value.pokemonId })[0]
                 var location = new google.maps.LatLng(value.latitude, value.longitude);
