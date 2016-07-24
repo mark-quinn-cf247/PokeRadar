@@ -42,7 +42,15 @@ namespace AngularJSWebApiEmpty.Controllers {
 
             var response = client.Execute(request);
             JavaScriptSerializer serializer = new JavaScriptSerializer();
-            var data = serializer.Deserialize<object>(response.Content);
+            object data = null;
+
+            try
+            {
+                data = serializer.Deserialize<object>(response.Content);
+            } catch(Exception e)
+            {
+                // swallow
+            }
 
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, data));
         }
@@ -59,7 +67,17 @@ namespace AngularJSWebApiEmpty.Controllers {
 
             var response = client.Execute(request);
             JavaScriptSerializer serializer = new JavaScriptSerializer();
-            var data = serializer.Deserialize<object>(response.Content);
+            object data = null;
+
+            try
+            {
+                data = serializer.Deserialize<object>(response.Content);
+            }
+            catch (Exception e)
+            {
+                // swallow
+            }
+
             return ResponseMessage(Request.CreateResponse(HttpStatusCode.OK, data));
         }
     }
