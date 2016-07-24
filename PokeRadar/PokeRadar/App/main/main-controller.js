@@ -27,17 +27,13 @@
 
         function getPokemon() {
             pokeService.getPokemon(lat, long, jobId).then(function (response) {
-                if (response.data.jobStatus === 'in_progress') {
+                if (response.data.jobStatus === 'in_progress' || response.data.jobStatus === 'unknown') {
                     getPokemon();
                 } else {
                     vm.pokemons = response.data.pokemon;
                     getPokemonData();
                 }
             });
-
-            //vm.pokemons = pokeService.getPokemon(lat, long, jobId).pokemon;
-
-            //$scope.$apply();
         }
 
         function getPokemonData() {
