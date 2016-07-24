@@ -4,15 +4,25 @@
     padding: 0;
 }
 
+.poke-info-table-container,
+.poke-map-container {
+    height: 100vh;
+}
+.poke-map-container {
+    padding: 0;
+}
 .poke-info-table-container {
-    height: 800px;
-    width: 800px;
-    overflow: auto
+    background: #2996d1;
+    background: -moz-linear-gradient(top, #2996d1 0%, #ff7575 100%);
+    background: -webkit-linear-gradient(top, #2996d1 0%,#ff7575 100%);
+    background: linear-gradient(to bottom, #2996d1 0%,#ff7575 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2996d1', endColorstr='#ff7575',GradientType=0 );
+    overflow-x: scroll;
+}
+.poke-info-table-container table {
+    color: white;
 }
 
-.poke-map {
-    height: 800px;
-    width: 800px;
-    float: left;
-    margin-right: 2em;
+#map {
+    height: 100%;
 }
