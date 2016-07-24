@@ -29,11 +29,11 @@
 
         function getPokemon() {
             pokeService.getPokemon(lat, long, jobId).then(function (response) {
-                if (response.data.jobStatus === 'in_progress' || response.data.jobStatus === 'unknown' || response.data.jobId === undefined) {
-                    getPokemon();
-                } else {
+                if (response.data.pokemon) {
                     vm.pokemons = response.data.pokemon;
                     getPokemonData();
+                } else {
+                    getPokemon();
                 }
             });
         }
