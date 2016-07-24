@@ -22,8 +22,12 @@
 
         function getToken() {
             pokeService.getToken(lat, long).then(function (response) {
-                jobId = response.data.jobId;
-                getPokemon();
+                if (response.data.jobId) {
+                    jobId = response.data.jobId;
+                    getPokemon();
+                } else {
+                    getToken();
+                }
             });
         }
 
