@@ -3,9 +3,9 @@
     angular.module('PokeRadar')
         .controller('mainController', mainController);
 
-    mainController.$inject = ['$scope', '$window', '$filter', '$interval', 'pokeService', 'googleMapService'];
+    mainController.$inject = ['$scope', '$window', '$filter', '$interval', '$timeout', 'pokeService', 'googleMapService'];
 
-    function mainController($scope, $window, $filter, $interval, pokeService, googleMapService) {
+    function mainController($scope, $window, $filter, $interval, $timeout, pokeService, googleMapService) {
         /* jshint validthis: true */
         var vm = this;
         var lat = 51.5032510;
@@ -22,22 +22,26 @@
 
         function getToken() {
             pokeService.getToken(lat, long).then(function (response) {
-                if (response.data.jobId) {
+                if (response.data && response.data.jobId) {
                     jobId = response.data.jobId;
                     getPokemon();
                 } else {
-                    getToken();
+                    $timeout(function () {
+                        getToken();
+                    }, 5000);
                 }
             });
         }
 
         function getPokemon() {
             pokeService.getPokemon(lat, long, jobId).then(function (response) {
-                if (response.data.pokemon) {
+                if (response.data && response.data.pokemon) {
                     vm.pokemons = response.data.pokemon;
                     getPokemonData();
                 } else {
-                    getPokemon();
+                    $timeout(function () {
+                        getPokemon();
+                    }, 5000);
                 }
             });
         }
