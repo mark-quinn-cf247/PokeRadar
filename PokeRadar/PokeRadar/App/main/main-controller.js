@@ -204,7 +204,7 @@
 
             refresh = $interval(function () {
                 getToken();
-            }, 10000);
+            }, 60000);
         }
 
         init();

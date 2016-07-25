@@ -257,6 +257,7 @@
     <Content Include="Content\icons\149.ico" />
     <Content Include="Content\icons\150.ico" />
     <Content Include="Content\icons\151.ico" />
+    <Content Include="Content\img\pokemon_go_logo.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
