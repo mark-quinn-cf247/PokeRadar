@@ -1,18 +1,81 @@
-﻿html, body {
+﻿/*
+    Colours
+    greyBlue:   #6D7B95;
+    lightBlue:  #67C1DC;
+    red:        #FF3B4B;
+    green:      #4CB5A4;
+    dark:       #3F4C5D;
+    yellow:     #FFE168;
+*/
+
+/* soft body reset */
+html, body {
     height: 100%;
     margin: 0;
     padding: 0;
 }
 
-.poke-info-table-container {
-    height: 800px;
-    width: 800px;
-    overflow: auto
+#header {
+    height: 50px;
+    background-color: #3F4C5D;
 }
 
-.poke-map {
-    height: 800px;
-    width: 800px;
-    float: left;
-    margin-right: 2em;
+#header h1 {
+  font-size: 30px;
+  margin-top: 10px;
+  color: #FFE168;  
+  margin-bottom: 0;
+  display: inline-block;
+}
+
+#header .navbar-toggle{
+    background-color: #FFE168; 
+}
+
+#header .navbar-toggle .icon-bar{
+    background-color: #3F4C5D; 
+}
+
+/* shared properties */
+.poke-info-container,
+.poke-info-map-container {
+    height: calc(100vh - 50px); /* leave 50px for header */
+}
+
+/* table section */
+
+.poke-info-container {
+    background: #67c1dc;
+    background: -moz-linear-gradient(top, #67c1dc 0%, #ff3b4b 100%);
+    background: -webkit-linear-gradient(top, #67c1dc 0%,#ff3b4b 100%);
+    background: linear-gradient(to bottom, #67c1dc 0%,#ff3b4b 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#67c1dc', endColorstr='#ff3b4b',GradientType=0 );
+    overflow: auto;
+}
+
+.poke-info-container table{
+    color: white;
+}
+
+/* Map section */
+.poke-info-map-container {
+   padding: 0;
+}
+
+.poke-info-map-container #map {
+    width: 100%;
+    height: 100%;
+}
+
+/* Webkit custom scrollbar*/
+::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+::-webkit-scrollbar-track {
+    background-color: #4CB5A4;
+}
+ 
+::-webkit-scrollbar-thumb {
+    background-color: #FF3B4B; 
 }
