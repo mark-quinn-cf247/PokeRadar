@@ -13,7 +13,7 @@
 </div>
 <div class="container-fluid">
     <div class="row">
-        <div class="hidden-xs col-sm-4 col-md-3 poke-info-container">
+        <div class="col-sm-4 col-md-3 poke-info-container">
             <div class="row">
                 <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 ">
                     <img class="img-responsive" src="../../Content/img/pokemon_go_logo.png" />
@@ -27,13 +27,6 @@
                         <th><b>Expiration</b></th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <th><b>Name</b></th>
-                        <th><b>Distance</b></th>
-                        <th><b>Expiration</b></th>
-                    </tr>
-                </tfoot>
                 <tbody>
                     <tr ng-repeat="pokemon in vm.tableData | orderBy:'distance'">
                         <td>{{pokemon.name}}</td>
@@ -48,3 +41,30 @@
         </div>
     </div>
 </div>
+
+<script>
+$(document).ready(function () {
+    $('#toggle-info').click(function () {
+
+        if ($('.poke-info-container').is(":visible")) {
+            $('.poke-info-container').stop(true, true).hide("slide", { direction: "left" }, 200);
+        } else {
+            $('.poke-info-container').stop(true, true).show("slide", { direction: "left" }, 200);
+        }
+    });
+
+    $(window).resize(function () {
+        resizeTest($(window).outerWidth());
+    });
+
+    function resizeTest(size) {
+        console.log(size);
+
+        if (size >= 768) {
+            $('.poke-info-container').stop(true, true).show("slide", { direction: "left" }, 200);
+        }
+    }
+
+    resizeTest();
+});
+</script>
