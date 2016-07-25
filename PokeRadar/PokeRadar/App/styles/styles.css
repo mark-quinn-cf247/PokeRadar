@@ -51,6 +51,25 @@ html, body {
     background: linear-gradient(to bottom, #67c1dc 0%,#ff3b4b 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#67c1dc', endColorstr='#ff3b4b',GradientType=0 );
     overflow: auto;
+
+    position: fixed;
+    top: 50px;
+    z-index: 999;
+    width: 80%;
+}
+
+@media only screen and (min-width : 768px) {
+    .poke-info-container {
+        position: relative;
+        top: 0px;
+        width: 33.33333333%;
+    }
+}
+
+@media only screen and (min-width : 992px) {
+    .poke-info-container {
+        width: 25%;
+    }
 }
 
 .poke-info-container table{
