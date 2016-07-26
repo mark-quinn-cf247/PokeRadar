@@ -43,7 +43,17 @@
         </div>
         <div class="col-sm-8 col-md-9 poke-info-map-container">
             <div id="map" ng-show="vm.mapReady"></div>
-            <div ng-show="!vm.mapReady">LOADING!!!!!</div>
+            <div ng-show="!vm.mapReady" class="loading">
+
+                <div class="pokeballs">
+
+                    <img class="fa-spin" src="../../Content/img/yellow.png" />
+                    <img class="fa-spin" src="../../Content/img/red.PNG" />
+                    <img class="fa-spin" src="../../Content/img/blue.png" />
+
+                </div>
+
+            </div>
         </div>
     </div>
 </div>
