@@ -13,6 +13,7 @@
         var jobId = null;
         var refresh = null;
         var alreadyNotified = [];
+        var stylesArray = [{ "featureType": "administrative.locality", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "landscape", "elementType": "all", "stylers": [{ "color": "#AFFFA0" }] }, { "featureType": "poi", "elementType": "all", "stylers": [{ "color": "#EAFFE5" }] }, { "featureType": "poi.business", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "poi.government", "elementType": "all", "stylers": [{ "visibility": "on" }] }, { "featureType": "road", "elementType": "geometry", "stylers": [{ "color": "#e1e454" }] }, { "featureType": "road", "elementType": "geometry.stroke", "stylers": [{ "color": "#e1e454" }, { "weight": 2.2 }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "visibility": "on" }, { "color": "#1A87D6" }] }];
         vm.tableData = [];
 
 
@@ -80,7 +81,8 @@
         function renderMap() {
             vm.map = new google.maps.Map(document.getElementById('map'), {
                 center: { lat: lat, lng: long },
-                zoom: 17       
+                zoom: 17,
+                styles: stylesArray
             });
 
             // plot current location
@@ -179,13 +181,13 @@
 
             var R = 6371; // Radius of the earth in km
             var dLat = deg2rad(pokeLat-currentLat);  // deg2rad below
-            var dLon = deg2rad(pokeLong-currentLong); 
-            var a = 
+            var dLon = deg2rad(pokeLong-currentLong);
+            var a =
               Math.sin(dLat/2) * Math.sin(dLat/2) +
-              Math.cos(deg2rad(currentLat)) * Math.cos(deg2rad(pokeLat)) * 
+              Math.cos(deg2rad(currentLat)) * Math.cos(deg2rad(pokeLat)) *
               Math.sin(dLon/2) * Math.sin(dLon/2)
-            ; 
-            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+            ;
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
             var d = R * c * 1000; // Distance in m
             return Math.floor(d);
         }
