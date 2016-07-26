@@ -13,6 +13,7 @@
         var jobId = null;
         var refresh = null;
         var alreadyNotified = [];
+        var stylesArray = [{ "featureType": "administrative.locality", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "landscape", "elementType": "all", "stylers": [{ "color": "#AFFFA0" }] }, { "featureType": "poi", "elementType": "all", "stylers": [{ "color": "#EAFFE5" }] }, { "featureType": "poi.business", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "poi.government", "elementType": "all", "stylers": [{ "visibility": "on" }] }, { "featureType": "road", "elementType": "geometry", "stylers": [{ "color": "#e1e454" }] }, { "featureType": "road", "elementType": "geometry.stroke", "stylers": [{ "color": "#e1e454" }, { "weight": 2.2 }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "visibility": "on" }, { "color": "#1A87D6" }] }];
         vm.tableData = [];
         vm.mapReady = false;
 
@@ -84,7 +85,8 @@
         function renderMap() {
             vm.map = new google.maps.Map(document.getElementById('map'), {
                 center: { lat: lat, lng: long },
-                zoom: 17       
+                zoom: 17,
+                styles: stylesArray
             });
 
             // plot current location
