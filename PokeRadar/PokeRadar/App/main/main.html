@@ -48,8 +48,8 @@
                 <div class="pokeballs">
 
                     <img class="fa-spin" src="../../Content/img/yellow.png" />
-                    <img class="fa-spin" src="../../Content/img/red.PNG" />
-                    <img class="fa-spin" src="../../Content/img/blue.png" />
+                    <img class="pokeball-1" src="../../Content/img/red.PNG" />
+                    <img class="pokeball-2" src="../../Content/img/blue.png" />
 
                 </div>
 
@@ -89,5 +89,20 @@ $(document).ready(function () {
     }
 
     initialLoad();
+
+    //pokeball staggered spin
+    var i = 0;
+    var interval;
+
+    interval = window.setInterval(function () {
+        console.log(i);
+        i = i + 1;
+        if (i >= 3) {
+            clearInterval(interval);
+        }
+        console.log($('pokeball-' + i));
+        $('.pokeball-' + i).addClass('fa-spin');
+    }, 100);
+
 });
 </script>

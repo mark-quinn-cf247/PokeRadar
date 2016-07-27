@@ -119,15 +119,14 @@ html, body {
 }
 
 .loading .pokeballs{
-  display: inline-block;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: inline-block;
+    bottom: 15px;
+    right: 15px;
 }
 
 .loading .pokeballs img {
     display: inline-block;
-    width: 100px;
-    height: 100px;
+    width: 30px;
+    height: 30px;
 }
