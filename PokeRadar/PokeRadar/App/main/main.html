@@ -79,6 +79,14 @@ $(document).ready(function () {
         }
     }
 
+    //hide menu if initial loadup is mobile view (so you can see laoding shit)
+    function initialLoad() {
+        if ($(window).outerWidth() < 768) {
+            $('.poke-info-container').hide();
+        }
+    }
+
     resizeTest();
+    initialLoad();
 });
 </script>
